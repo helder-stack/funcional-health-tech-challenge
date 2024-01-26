@@ -1,0 +1,45 @@
+version: '3.8'
+services: 
+
+  backend: 
+    depends_on: 
+      - db
+    ports: 
+      - '3000:3000'
+    env_file:
+      - .env 
+    build: .
+    networks: 
+      - backend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "localhost:host-gateway"
+
+    restart: always
+    command: 
+      - "/bin/sh"
+      - "-c"
+      - "npx prisma migrate dev up --skip-generate && yarn dev"
+
+  db:
+    image: 'postgres:latest'
+    restart: 'always'
+    env_file:
+      - .env
+    environment: 
+      POSTGRES_USER: '${DB_USER}'
+      POSTGRES_PASSWORD: '${DB_PASS}'
+      POSTGRES_DB: '${DB_NAME}'
+    ports: 
+      - '5433:5432'
+    expose:
+      - '5433'
+    networks: 
+      - backend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+      - "localhost:host-gateway"
+
+networks: 
+  backend:
+      driver: bridge
