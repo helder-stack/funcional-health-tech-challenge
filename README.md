@@ -23,8 +23,12 @@ $ yarn dev
 
 Tomei a liberdade de criar um docker compose para subir o projeto automaticamente (banco de dados e o software)
 
-```
+```bash
 $ docker compose up
+```
+## PARA RODAR OS TESTES
+```bash
+$ yarn test --coverage
 ```
 
 ## PARA ACESSAR
