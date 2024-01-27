@@ -56,17 +56,6 @@ export class BankTransactions {
         }
     }
 
-    async getExampleAccounts() {
-        const accounts = await this.accountRepository.getAllAccounts()
-        const formattedAccounts = accounts.map(account => {
-            return {
-                conta: account.number,
-                saldo: account.balance
-            }
-        })
-        return formattedAccounts
-    }
-
     async payBill(accountNumber: string | number, billValue: number) {
         const account = await this.accountRepository.getByAccountNumber(accountNumber.toString())
         if (account) {

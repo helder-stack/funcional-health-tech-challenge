@@ -78,21 +78,10 @@ describe("Bank transactions service", () => {
 
     it("Should to test check balance", async ()=>{
         accountRepository.getByAccountNumber.mockResolvedValue(accountMock)
-
         expect(service.checkBalance("65432")).resolves.toEqual({
             conta: accountMock.number,
             saldo: accountMock.balance
         })
-    })
-
-    it("Should to test get exemplesAccount", async ()=>{
-        accountRepository.getAllAccounts.mockResolvedValue([accountMock])
-        expect(service.getExampleAccounts()).resolves.toEqual([
-            {
-                conta: accountMock.number,
-                saldo: accountMock.balance
-            }
-        ])
     })
 
     it("Should to pay bill", async ()=>{
@@ -116,7 +105,6 @@ describe("Bank transactions service", () => {
         expect(service.payBill("65432", 10)).rejects.toThrow(
             new Error("Saldo insuficiente")
         )
-
     })
 
 })

@@ -23,8 +23,12 @@ $ yarn dev
 
 Tomei a liberdade de criar um docker compose para subir o projeto automaticamente (banco de dados e o software)
 
-```
+```bash
 $ docker compose up
+```
+## PARA RODAR OS TESTES
+```bash
+$ yarn test --coverage
 ```
 
 ## PARA ACESSAR
@@ -73,6 +77,42 @@ query {
 }
 
 ```
+
+```bash
+query{
+  buscaBancos{
+    id, 
+    nome
+  }
+}
+```
+
+```bash
+query{
+	buscaUsuarios{
+    id,
+    nome,
+    email
+  }
+}
+```
+```bash
+  mutation{
+	criarUsuario(nome: "Hélder", email:"helderfac450@gmail.com"){
+    id,
+    nome,
+    email
+  }
+}
+```
+```bash
+mutation{
+	criarConta(idUsuario: "0d22754f-bd85-467d-8ebd-a369cb93e95a", idBanco: "4b43be71-f4e3-401e-b27f-fb59c3583ffa"){
+    conta,
+    saldo
+  }
+}
+```
 (este ultimo fiz para poder pegar as contas disponíveis)
 
 ```bash
@@ -82,9 +122,7 @@ query {
     saldo
   }
 }
-
 ```
-
 
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) 
 
