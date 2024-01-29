@@ -19,18 +19,19 @@ async function seedUser() {
     const user = await userRepository.getByEmail("dev@funcional.com")
     if (!user) {
         console.log("*** SEEDING USER ***\n")
-        userRepository.createUser({
+        await userRepository.createUser({
             name: "FHT USER",
             email: "dev@funcional.com"
         })
     }
 }
 
-async function seedAccount(){
+async function seedAccount() {
     const user = await userRepository.getByEmail("dev@funcional.com")
     const bank = await bankRepository.getByName("FHT Bank");
+    if(user){
         const account = await accountRepository.getAccountByUserAndBankId(user.id, bank.id)
-        if(!account){
+        if (!account) {
             console.log("*** SEEDING ACCOUNT ***\n")
             return await accountRepository.createAccount({
                 bankId: bank.id,
@@ -40,6 +41,10 @@ async function seedAccount(){
             })
         }
         return account
+    }else{
+        await seedUser()
+        return await seedAccount()
+    }
 }
 
 export async function seed() {
